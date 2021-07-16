@@ -9,17 +9,32 @@
   </head>
   <body>
     <div id="main-container">
+        <div id="form-container">
       <h1>My Cringe book Library</h1>
       <form>
         <laber for="title">Title</laber>
         <input id="title" type="text" /><br />
         <laber for="author">Author</laber>
         <input id="author" type="text" /><br />
-        <laber for="pages">Pages</laber>
+        <laber for="pages" type="number">Pages</laber>
         <input id="pages" type="text" /><br />
+        <fieldset role="radiogroup">
+            <legend>Read book?</legend>
+            <label for="yes">
+              <input type="radio" id="yes" name="read" value="yes" checked>
+              <span>Yes</span>
+            </label>
+            <label for="no">
+              <input type="radio" id="no" name="read" value="no">
+              <span>No</span>
+            </label>
+          </fieldset>
       </form>
       <button id="addBookButton">Add a new book</button>
-      <div id="books-container"></div>
+    </div>
+      <div id="books-container">
+        </div>
+      </div>
     </div>
   </body>
   <script src="script.js"></script>
