@@ -1,6 +1,9 @@
 "use strict";
 let bookButton = document.querySelector("#addBookButton");
 let booksContainer = document.querySelector("#books-container");
+let title = document.getElementById("title");
+let author = document.getElementById("author");
+let pages = document.getElementById("pages");
 
 bookButton.addEventListener("click", addBookToLibrary);
 
@@ -14,29 +17,35 @@ function Book(title, author, pages, read) {
 }
 
 function addBookToLibrary() {
-  let title = document.getElementById("title").value;
-  let author = document.getElementById("author").value;
-  let pages = document.getElementById("pages").value;
-  if (title == "" || author == "") {
+  if (title.value == "" || author.value == "" || pages.value == null) {
     return;
   } else {
-    myLibrary.push(new Book(title, author, pages, getReadValue()));
+    myLibrary.push(
+      new Book(title.value, author.value, pages.value, getReadValue())
+    );
     clearList();
     displayBooks();
+    clearForm();
   }
+}
+function clearForm() {
+  title.value = "";
+  author.value = "";
+  pages.value = "";
 }
 const getReadValue = () => {
   if (document.querySelector('input[name="read"]:checked').value == "yes")
     return true;
   else return false;
 };
+
 function displayBooks() {
   myLibrary.forEach((element) => {
     let card = document.createElement("div");
     card.classList = "card";
 
     let h2 = document.createElement("h2");
-    h2.textContent = element.title;
+    h2.textContent = `"${element.title}"`;
 
     let p1 = document.createElement("p");
     p1.textContent = `by`;
@@ -62,8 +71,9 @@ function displayBooks() {
       booksContainer.removeChild(card);
       myLibrary.splice(card, 1);
     });
+
     let change = document.createElement("button");
-    change.textContent = "change";
+    change.textContent = "Read Status";
     change.dataset.ID = myLibrary.indexOf(element);
     change.classList = "change-button";
 
