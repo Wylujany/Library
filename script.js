@@ -7,7 +7,7 @@ let pages = document.getElementById("pages");
 
 bookButton.addEventListener("click", addBookToLibrary);
 
-let myLibrary = [];
+let myLibrary = JSON.parse(localStorage.getItem("library")) || [];
 
 function Book(title, author, pages, read) {
   this.title = title;
@@ -24,6 +24,7 @@ function addBookToLibrary() {
       new Book(title.value, author.value, pages.value, getReadValue())
     );
     clearList();
+    updateLocalStorage();
     displayBooks();
     clearForm();
   }
@@ -60,7 +61,7 @@ function displayBooks() {
     if (element.read == true) {
       read.textContent = "Read";
     } else {
-      read.textContent = "not yet";
+      read.textContent = "Not Read";
     }
 
     let remove = document.createElement("button");
@@ -70,6 +71,7 @@ function displayBooks() {
     remove.addEventListener("click", () => {
       booksContainer.removeChild(card);
       myLibrary.splice(card, 1);
+      updateLocalStorage();
     });
 
     let change = document.createElement("button");
@@ -99,9 +101,13 @@ function displayBooks() {
     card.append(change);
   });
 }
+function updateLocalStorage() {
+  localStorage.setItem("library", JSON.stringify(myLibrary));
+}
 
 function clearList() {
   while (booksContainer.firstChild) {
     booksContainer.removeChild(booksContainer.lastChild);
   }
 }
+window.onload = displayBooks();
