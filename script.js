@@ -9,11 +9,13 @@ bookButton.addEventListener("click", addBookToLibrary);
 
 let myLibrary = JSON.parse(localStorage.getItem("library")) || [];
 
-function Book(title, author, pages, read) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = read;
+class Book {
+  constructor(title, author, pages, read) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
+  }
 }
 
 function addBookToLibrary() {
@@ -81,10 +83,8 @@ function displayBooks() {
 
     change.addEventListener("click", (element) => {
       if (myLibrary[element.target.dataset.ID].read) {
-        //If the book is "read" pressing the button change it to "not read"
         myLibrary[element.target.dataset.ID].read = false;
       } else if (!myLibrary[element.target.dataset.ID].read) {
-        //If the book is "not read" pressing the button change it to "read"
         myLibrary[element.target.dataset.ID].read = true;
       }
       clearList();
